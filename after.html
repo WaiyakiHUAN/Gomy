@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pricing Cards</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 24px;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: #f7f7fb;
+      display: grid;
+      place-items: center;
+      min-height: 100vh;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      width: 100%;
+      max-width: 960px;
+    }
+
+    .pricing {
+      width: 100%;
+      margin: auto;
+      background-color: #fff;
+      box-shadow: 0 0 10px #ccc; /* fixed box-shadow typo */
+      padding: 16px;
+      text-align: left;
+      border-radius: 8px;
+    }
+
+    .title {
+      font-size: 22px;
+      font-weight: bold;
+      margin: 0 0 8px;
+    }
+
+    .price {
+      font-size: 18px;
+      color: #0f766e; /* accessible green */
+      margin: 0 0 12px;
+    }
+
+    .features {
+      list-style: none;
+      padding-left: 0;
+      margin: 0 0 12px;
+    }
+
+    .features li {
+      padding: 8px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .features li:last-child { border-bottom: none; }
+
+    .btn {
+      background: #2563eb;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      margin-top: 10px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .btn:hover { background: #1e40af; }
+  </style>
+</head>
+<body>
+  <div class="cards" id="app"></div>
+
+  <script>
+    function Card(title, price, features) {
+      const container = document.createElement('div');
+      container.className = 'pricing';
+
+      const safeFeatures = Array.isArray(features) ? features : [];
+
+      container.innerHTML = `
+        <h2 class="title">${title}</h2>
+        <p class="price">${price}</p>
+        <ul class="features">
+          ${safeFeatures.map(item => `<li>${item}</li>`).join('')}
+        </ul>
+        <button class="btn" type="button">Start Trial</button>
+      `;
+
+      return container;
+    }
+
+    const app = document.getElementById('app');
+    app.appendChild(Card('Basic Plan', '$9.99 / month', [
+      '1 GB Storage',
+      'Basic Support',
+      'All Core Features'
+    ]));
+
+    app.appendChild(Card('Pro Plan', '$19.99 / month', [
+      '10 GB Storage',
+      'Priority Support',
+      'Advanced Features'
+    ]));
+  </script>
+</body>
+</html>
